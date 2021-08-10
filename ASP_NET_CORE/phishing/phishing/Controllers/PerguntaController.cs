@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using phishing.Models;
+using phishing.Models.ViewModels;
 using phishing.Services;
 
 namespace phishing.Controllers
 {
     public class PerguntaController : Controller
     {
+        public int acertos = 0;
         private readonly PerguntaService _perguntaService;
         public PerguntaController(PerguntaService perguntaService)
         {
@@ -28,19 +30,25 @@ namespace phishing.Controllers
             return View(pergunta);
         }
 
-        [HttpGet]
-        public List<Pergunta> GetPerguntaByNumber()
+        public Pergunta GetPerguntaByNumber(int numeroPergunta)
         {
             //metodo de salvar resultado numa lista
             List<Pergunta> perguntas = new List<Pergunta>();
-
+            perguntas.Add(new Pergunta()
+            {
+                Titulo = "Vamos começar com este e - mail do Documentos Google.",
+                Descricao = @"Confira os URLs dos links. Basta passar o cursor do mouse sobre eles ou tocar neles e os manter pressionados. Além disso, não deixe de verificar os endereços de e-mail. Não se preocupe, nenhum dos links funciona. Não queremos que você acesse nenhum site ""peculiar"".",
+                Num_Pergunta = 1,
+                Resposta = "PHISHING",
+                ConteudoDiv = "<div>aiusdhaus</div>"
+            });
             perguntas.Add(new Pergunta
-                {
-                    Titulo = "Você recebeu um fax.",
-                    Descricao = @"Sabemos que você não perde tempo, mas vá no seu ritmo.",
-                    Num_Pergunta = 2,
-                    Resposta = "PHISHING"
-                });
+            {
+                Titulo = "Você recebeu um fax.",
+                Descricao = @"Sabemos que você não perde tempo, mas vá no seu ritmo.",
+                Num_Pergunta = 2,
+                Resposta = "PHISHING"
+            });
             perguntas.Add(new Pergunta
             {
                 Titulo = "Vamos relembrar os bons tempos!",
@@ -84,17 +92,30 @@ namespace phishing.Controllers
                 Resposta = "VERDADEIRO"
             });
 
-            return perguntas;
+            return (from p in perguntas
+                    where p.Num_Pergunta == numeroPergunta
+                    select p).FirstOrDefault();
         }
 
-        //[HttpPost]
-        //public IActionResult SalvaResposta(int num_Pergunta, string resposta)
-        //{
-        //    List<Pergunta> listaPerguntas = GetPerguntaByNumber();
-        //    for(int i = 0; i < listaPerguntas.Count; i++)
-        //    {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        public IActionResult SalvaResposta([FromBody] Resposta resposta)
+        {
+            Pergunta pergunta = GetPerguntaByNumber(resposta.NumPergunta);
+
+            if (resposta.RespostaPergunta == pergunta.Resposta)
+            {
+                acertos += 1;
+            }
+
+            ViewData["acertos"] = acertos;
+
+            return Json("Sucesso");
+        }
+        [HttpGet]
+        public Pergunta GetNextQuestion(int numPergunta)
+        {
+            Pergunta proxPergunta = GetPerguntaByNumber(numPergunta + 1);
+            return proxPergunta;
+        }
     }
 }

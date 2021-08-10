@@ -16,5 +16,11 @@ namespace phishing.Models
         public string Descricao { get; set; }
 
         public string Resposta { get; set; }
+
+        public string ConteudoDiv { get; set; }
+
+        public string MensagemAcerto { get; set; }
+
+        public string MensagemErro { get; set; }
     }
 }

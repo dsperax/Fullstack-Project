@@ -26,43 +26,38 @@
 
     function clicou() {
 
-        var np = @Model.Num_Pergunta;
+        var np = "@Model.Num_Pergunta";
         var respostaCorreta = "@Model.Resposta";
+        var resposta = { NumPergunta: np, RespostaPergunta: respostaCorreta};
 
                 rsp.addEventListener("click", function (event) {
-                    if (event.target.innerHTML == respostaCorreta) {
-                        //contador ++ & proxima questão
-                        console.log("BOA");
-                        var acerto = true;
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("SalvaResposta", "Pergunta")',
+                        data: JSON.stringify(resposta),
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function () {
+                            alert('passou primeiro ajax');
+                        },
+                        error: function () {
+                            alert("Error");
+                        }
+                    });
 
-                    } else {
-                        //próxima questão
-                        console.log("errou");
-                        var acerto = false;
-                        //resposta = {Num_Pergunta = np, Resposta: "Errada"};
-                    }
+                    $.ajax({
+                        url: '@Url.Action("GetNextQuestion", "Pergunta")',
+                        data: { NumPergunta: np }
+                    }).done(function (data) {
+                        console.log(data);
+                        $('#workspace h1').html(data.titulo);
+                        $('#workspace p').html(data.descricao);
+                        //COLOCAR O HTML NA MODEL nos campos novos
+                       // $('.formulario-questoes').html(data.conteudoDiv);
+                        //fazer para conteudo acerto
+                    });
                 });
 
-                //if (acerto) {
-                //    var resposta = { Num_Pergunta = np, Resposta: respostaCorreta };
-                //} else {
-                //    var resposta = { Num_Pergunta = np, Resposta: "ERROU" };
-                //}
-
-
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("SalvaResposta", "Pergunta")',
-                    data: JSON.stringify(resposta),
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    success: function () {
-                        console.log('Sucesso!');
-                    },
-                    error: function () {
-                        alert("Error");
-                    }
-                });
             }
 
     @*function proximaPergunta() {

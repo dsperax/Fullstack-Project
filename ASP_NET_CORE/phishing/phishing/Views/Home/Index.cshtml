@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="texto-principal">
+        <h1>Será que você percebe quando é alvo de phishing?</h1>
+        <p>Reconhecer um ataque de phishing pode ser mais difícil do que você imagina. Nesse tipo de ataque, alguém finge ser um conhecido para tentar fazer você compartilhar informações pessoais. Você sabe identificar informações falsas?</p>
+    </div>
+    <button class="botao-entrar" onclick="autenticacao()">FAZER O TESTE</button>
+    <div class="imagem-phishing">
+        <img src="~/static/intro.gif" alt="Mão com linha e anzol simbolizando pescaria">
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+    function autenticacao() {
+    window.location.href = "/home/autenticacao";
+    }
+    </script>
+}

@@ -1,0 +1,156 @@
+﻿@model phishing.Models.Pergunta
+@{
+    ViewData["Title"] = "Pergunta";
+}
+
+<div id="container" class="container">
+    <div id="workspace" class="texto-principal">
+        <h1>Vamos começar com este e - mail do Documentos Google.</h1>
+        <p>
+            Confira os URLs dos links. Basta passar o cursor do mouse sobre eles ou tocar
+            neles e os manter pressionados. Além disso, não deixe de verificar os endereços
+            de e-mail. Não se preocupe, nenhum dos links funciona. Não queremos que você acesse
+            nenhum site "peculiar".
+        </p>
+        <div id="respostas">
+            <button class="botao-alternativa" onclick="clicou('P')">PHISHING</button>
+            <button class="botao-alternativa" onclick="clicou('V')">VERDADEIRO</button>
+        </div>
+    </div>
+    <div class="formulario-questoes">
+        <a href="drive--google.com" onclick="return false"><img src="~/static/q1.png" /></a>
+    </div>
+</div>
+
+@section Scripts{
+<script type="text/javascript">
+
+    var rsp = document.getElementById("respostas");
+    var questao = [1];
+    var nq = 1;
+    var nAcertos = 0;
+
+    function avancaProximaPergunta() {
+
+        //try {
+            questao.push(1);
+            if (questao.length >= 8) {
+                window.location.href = "/resultado/resultado";
+            } else {
+                $.ajax({
+                    url: '@Url.Action("GetNextQuestion", "Pergunta")',
+                    data: { NumPergunta: nq }
+                }).done(function (data) {
+                    $('#workspace h1').html(data.titulo);
+                    $('#workspace p').html(data.descricao);
+                    $('.formulario-questoes').html(data.conteudoDiv);
+                    $('#respostas').html(data.botaoRespostas);
+                });
+            }
+        //} 
+        
+    }
+
+    function clicou(ondeClicou) {
+
+        var np = "@Model.Num_Pergunta";
+        var respostaCorreta = "@Model.Resposta";
+
+        var resposta = { NumPergunta: nq, RespostaPergunta: respostaCorreta }; //não pega a resposta correta, pega sempre phishing
+
+        console.log("resposta: " + respostaCorreta);
+
+        nq = questao.length;
+        console.log(nq);
+
+        try {
+            if (ondeClicou == respostaCorreta) { //trocar p por resposta
+                $.ajax({
+                    url: '@Url.Action("RespostaPergunta", "Pergunta")',
+                    data: { NumPergunta: nq }
+                }).done(function (data) {
+                    nAcertos++;
+                    $('#workspace h1').html(data.mensagemAcerto);
+                    $('#workspace p').html(data.descricaoResposta);
+                    $('#respostas').html(data.botaoProximaPergunta);
+                });
+            } else {
+                $.ajax({
+                    url: '@Url.Action("RespostaPergunta", "Pergunta")',
+                    data: { NumPergunta: nq }
+                }).done(function (data) {
+                    $('#workspace h1').html(data.mensagemErro);
+                    $('#workspace p').html(data.descricaoResposta);
+                    $('#respostas').html(data.botaoProximaPergunta);
+                });
+            }
+
+        } finally {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("SalvaResposta", "Pergunta")',
+                data: JSON.stringify(resposta),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    console.log("Salvo")
+                    console.log("Acertou: " + nAcertos);
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        }
+
+       
+
+                @*if (event.target.innerHTML == "PHISHING" || event.target.innerHTML == "VERDADEIRO") {
+                    $.ajax({
+                        url: '@Url.Action("RespostaPergunta", "Pergunta")',
+                        data: { NumPergunta: nq }
+                    }).done(function (data) {
+                        //console.log(data);
+                        if (event.target.innerHTML != respostaCorreta) {
+                            
+                            console.log("Errou");
+                        } else {
+                            $('#workspace h1').html(data.mensagemAcerto);
+                            console.log("Acertou");
+                            nAcertos++;
+                        }
+                        $('#workspace p').html(data.descricaoResposta);
+                        $('#respostas').html(data.botaoProximaPergunta);
+                    });
+
+                    $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SalvaResposta", "Pergunta")',
+                    data: JSON.stringify(resposta),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function () {
+                    },
+                    error: function () {
+                        alert("Error");
+                    }
+                    });
+
+                } else if (event.target.innerHTML == "PRÓXIMA PERGUNTA") {
+                        $.ajax({
+                        url: '@Url.Action("GetNextQuestion", "Pergunta")',
+                        data: { NumPergunta: nq }
+                    }).done(function (data) {
+                        //console.log(data);
+                        $('#workspace h1').html(data.titulo);
+                        $('#workspace p').html(data.descricao);
+                        $('.formulario-questoes').html(data.conteudoDiv);
+                        $('#respostas').html(data.botaoRespostas);
+                        //alert('passou 3 ajax');
+                    });
+                }*@
+        }
+</script>
+}
+
+
+

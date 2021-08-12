@@ -13093,11 +13093,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\diogo.xavier\\Desktop\\Projeto Campanha PHISHING\\ASP_NET_CORE 3.0\\phishing\\phishing\\phishing.csproj",
+      "projectUniqueName": "C:\\Users\\diogo.xavier\\Desktop\\phishing\\ASP_NET_CORE 3.0\\phishing\\phishing\\phishing.csproj",
       "projectName": "phishing",
-      "projectPath": "C:\\Users\\diogo.xavier\\Desktop\\Projeto Campanha PHISHING\\ASP_NET_CORE 3.0\\phishing\\phishing\\phishing.csproj",
+      "projectPath": "C:\\Users\\diogo.xavier\\Desktop\\phishing\\ASP_NET_CORE 3.0\\phishing\\phishing\\phishing.csproj",
       "packagesPath": "C:\\Users\\diogo.xavier\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\diogo.xavier\\Desktop\\Projeto Campanha PHISHING\\ASP_NET_CORE 3.0\\phishing\\phishing\\obj\\",
+      "outputPath": "C:\\Users\\diogo.xavier\\Desktop\\phishing\\ASP_NET_CORE 3.0\\phishing\\phishing\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

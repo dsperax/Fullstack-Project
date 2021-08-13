@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Resultado";
+}
+
+<div class="container">
+    <div class="texto-principal">
+        <p class="resultado-quiz">
+            Bom trabalho, Jogador! Você acertou
+            <div class="resultado-quiz" id="resultado-final"></div>
+        <p class="resultado-quiz">
+            do total de 8.</p>
+        </p>
+        <p>A prática leva à perfeição, e quanto mais você sabe o que analisar, mais se protege contra os ataques de phishing. Você também pode tomar algumas precauções simples para melhorar a segurança das suas contas on-line.</p>
+    </div>
+    <button class="botao-entrar" onclick="autenticacao()">FAZER O TESTE NOVAMENTE</button>
+    <div class="imagem-phishing">
+        @*<img src="/static/final.gif" alt="Mão com linha e anzol simbolizando pescaria">*@
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+    imagemResultado();
+
+    function autenticacao() {
+        window.location.href = "/home/autenticacao"
+    }
+
+    function imagemResultado() {
+        if (qtdAcertos < 8) {
+            $('.imagem-phishing').html("<img src='/static/final-pass.gif' alt='Mão com linha e anzol simbolizando pescaria'>")
+        } else (
+            $('.imagem-phishing').html("<img src='/static/final.gif' alt='Mão com linha e anzol simbolizando pescaria'>")
+        )
+    }
+    </script>
+}
+

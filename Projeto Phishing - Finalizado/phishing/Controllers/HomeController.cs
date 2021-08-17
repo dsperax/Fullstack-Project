@@ -25,7 +25,7 @@ namespace phishing.Controllers
             TempData["nome"] = usuario.Nome;
             TempData["email"] = usuario.Email;
             TempData["pontuacao"] = 0;
-            return Json("s");
+            return Json("Salvo com sucesso!");
         }
     }
 }

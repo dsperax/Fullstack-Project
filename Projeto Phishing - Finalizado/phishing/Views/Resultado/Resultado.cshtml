@@ -25,17 +25,16 @@
            imagemResultado(@Model.Acertos);
         });
 
-        function autenticacao() {
-            window.location.href = "/home/autenticacao"
-        }
+    function autenticacao() {
+        window.location.href = "/home/autenticacao"
+    }
 
     function imagemResultado(qtdAcertos) {
         if (qtdAcertos < 8) {
             $('.imagem-phishing').html("<img src='/static/final.gif' alt='Mão com linha e anzol simbolizando pescaria'>")
         } else {
             $('.imagem-phishing').html("<img src='/static/final-pass.gif' alt='Mão com linha e anzol simbolizando pescaria'>")
-        }
-                          
+        }                  
     }
     </script>
 }

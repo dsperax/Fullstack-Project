@@ -34,8 +34,6 @@
 
             var usuario = { Nome: nome.value, Email: email.value };
 
-            console.log(usuario);
-
             if(usuario.Nome != "" && usuario.Email != "") { 
                 $.ajax({
                     type: "POST",
@@ -53,7 +51,6 @@
             } else {
                 alert("Preecha todos os campos para continuar!");
             }
-
         }
     </script>
 }

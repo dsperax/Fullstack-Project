@@ -53,24 +53,23 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             async: false
-            }).done(function(retorno) {
-                if (acertou) {
-                    $('#workspace h1').html('ACERTOU');
-                }
-                else {
-                    $('#workspace h1').html('ERROU!');
-                }
-                $('#workspace p').html(retorno.descricaoResposta);
-                $('#respostas').hide();
-                $('#btnProxPergunta').show();
-            }).fail(function () {
-                alert("Error");
-            })
+        }).done(function(retorno) {
+            if (acertou) {
+                $('#workspace h1').html('ACERTOU!');
+            }
+            else {
+                $('#workspace h1').html('ERROU!');
+            }
+            $('#workspace p').html(retorno.descricaoResposta);
+            $('#respostas').hide();
+            $('#btnProxPergunta').show();
+        }).fail(function () {
+            alert("Error");
+        })
+    }
 
-        }
     function avancaProximaPergunta() {
         var numPergunta = $('#numPergunta')[0].innerHTML;
-        console.log(parseInt(numPergunta)); //colocar o maior numero de pergunta do banco
         if (parseInt(numPergunta) <= 7) {
             $.get("/Pergunta/GetNextQuestion/" + numPergunta, null, function (data) {
                 $('#workspace h1').html(data.titulo);
@@ -82,8 +81,7 @@
             });
         } else {
             window.location.href = "/resultado/resultado";
-        }
-        
+        }    
     }
     </script>
 }

@@ -13093,11 +13093,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\diogo.xavier\\Desktop\\phishing\\Projeto Phishing - Finalizado\\phishing\\phishing.csproj",
+      "projectUniqueName": "C:\\Users\\diogo.xavier\\Desktop\\Fullstack-Project\\Projeto Phishing - Finalizado\\phishing\\phishing.csproj",
       "projectName": "phishing",
-      "projectPath": "C:\\Users\\diogo.xavier\\Desktop\\phishing\\Projeto Phishing - Finalizado\\phishing\\phishing.csproj",
+      "projectPath": "C:\\Users\\diogo.xavier\\Desktop\\Fullstack-Project\\Projeto Phishing - Finalizado\\phishing\\phishing.csproj",
       "packagesPath": "C:\\Users\\diogo.xavier\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\diogo.xavier\\Desktop\\phishing\\Projeto Phishing - Finalizado\\phishing\\obj\\",
+      "outputPath": "C:\\Users\\diogo.xavier\\Desktop\\Fullstack-Project\\Projeto Phishing - Finalizado\\phishing\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -28,6 +28,7 @@ namespace phishing.Data
             }
             catch (Exception)
             {
+                throw new Exception("Falha na Conexão!");
             }
             finally
             {

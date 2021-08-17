@@ -28,7 +28,5 @@ namespace phishing.Models
         public string BotaoProximaPergunta { get; set; }
 
         public string BotaoRespostas { get; set; }
-
-        public System.Web.SessionState.HttpSessionState Session { get; set; }
     }
 }
